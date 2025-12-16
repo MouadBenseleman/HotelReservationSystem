@@ -1,0 +1,18 @@
+1- No, putting all the functions inside a single service is not a recommended approach.
+
+Each entity should have its own service in order to respect the separation of concerns principle.
+This helps keep the code clean, organized, and easier to maintain, especially as the application grows.
+In addition, it is often useful to introduce a shared business or rule layer that contains common logic used
+by multiple services.This avoids code duplication, reduces complexity, and improves maintainability.
+
+This design fits well with a 4-tier architecture, where each layer has a clear responsibility:
+
+* Presentation Layer: Controllers that handle HTTP requests and responses
+* Business Logic Layer: Services that contain application rules
+* Data Access Layer: Repositories or Hibernate for database operations
+* Database Layer: The database itself
+
+2-Another way to handle this is to avoid modifying an existing room at all. Instead of updating the room
+when setRoom(..) is called, we can create a new room object and keep the old one unchanged.
+This way, previous bookings still refer to the old room data, and nothing breaks.
+So my recommandation is to add a condition to the function setRoom(..)  when the room is already booked the backend will send an Exception .
